@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>travel dash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="nav_bar"><a href="/logout">Logout</a></div>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h1>Hello, {{user}}</h1>
+    <p>Your Trip Schedules
+            <table style="width:80%; margin:20px; text-align:center; border-style:solid;">
+                    <tr>
+                        <th>Destination</th>
+                        <th>Travel Start Date</th>
+                        <th>Travel End Date</th>
+                        <th>Description</th>
+                    </tr>
+                    {% for trip in my_trips %}
+                    <tr>
+                        <td><a href="/destinations/{{trip.id}}">{{trip.destination}}</a></td>
+                        <td>{{trip.travel_from}}</td>
+                        <td>{{trip.travel_to}}</td>
+                        <td>{{trip.description}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for trip in group_trips %}
+                    <tr>
+                        <td><a href="/destinations/{{trip.id}}">{{trip.destination}}</a></td>
+                        <td>{{trip.travel_from}}</td>
+                        <td>{{trip.travel_to}}</td>
+                        <td>{{trip.description}}</td>
+                    </tr>
+                    {% endfor %} 
+            </table>
+    </p>    
+    <p>Other Users' Travel Plans:
+            <table style="width:80%; margin:20px; text-align:center; border-style: solid;">
+                <tr>
+                    <th>Name</th>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Description</th>
+                    <th>Do You Want to Join?</th>
+                </tr>
+                {% for trip in all_trips %}
+                <tr>
+                    <td>{{trip.my_trip.name}}</td>
+                    <td><a href="/destinations/{{trip.id}}">{{trip.destination}}</a></td>
+                    <td>{{trip.travel_from}}</td>
+                    <td>{{trip.travel_to}}</td>
+                    <td>{{trip.description}}</td>
+                    <td><a href="/join/{{trip.id}}">Join</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+    </p>
+    <a href="/add">Add travel</a>
+</body>
+</html>
